@@ -39,12 +39,3 @@ Node* init_tape(char sigma){
     no->prev = NULL;
     return no;
 }
-
-void print_tape(Node *no) {
-  Node *aux = no;
-  while (aux != NULL) {
-    printf("%c", aux->s);
-    aux = aux->next;
-  }
-  printf("\n");
-}
