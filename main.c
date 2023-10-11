@@ -19,20 +19,20 @@ char * removeSpacesFromStr(char *string)
     return string;
 }
 
-bool turing_machine(char qAccept, char matriz[][16], int numTransições, char* word){
-    printf("Started tes\n");
+bool turing_machine(char qAccept, char matriz[][16], int numTrans, char* word){
     char currQ = '1';
-    printf("oi");
     Node* header = init_tape(word[0]); 
-    printf("volter");
     for (int i = 1; i < strlen(word); i++) {
         add_node(header, word[i]);
-
     }
+
+    // add blank space to the end of the tape
+    add_node(header, '-');
     bool t = false;
     Node* aux = header;
     while(currQ != qAccept){
-        for(int i=0; i<numTransições; i++){
+        t = false;
+        for(int i=0; i<numTrans; i++){
             if(matriz[i][0] == currQ && matriz[i][1] == aux->s){
                 aux->s = matriz[i][2];
                 if(matriz[i][3] == 'D'){
@@ -48,17 +48,22 @@ bool turing_machine(char qAccept, char matriz[][16], int numTransições, char* 
                 char prevQ = currQ;
                 currQ = matriz[i][4];
 
-                printf("Estado:%c Leu:%c Escreveu:%c Direção:%c Estado Seguinte:%c\n", prevQ, matriz[i][1], matriz[i][2], matriz[i][3], currQ);
                 t = true;
+
+                printf("Estado:%c Leu:%c Escreveu:%c Direção:%c Estado Seguinte:%c\n", prevQ, matriz[i][1], matriz[i][2], matriz[i][3], currQ);
                 break;
             }
+        }
+
+        if(currQ == qAccept){
+            return true;
         }
 
         if(!t){
             return false;
         }
 
-    } 
+    }
     return t;
 }
 int main(int argc, char* argv[]){
@@ -77,15 +82,15 @@ int main(int argc, char* argv[]){
     printf("Estado de aceitação: %c\n", qAccept);
 
 
-    int numTransições;
-    fscanf(file, "%d", &numTransições);
-    printf("Número de transições: %d\n", numTransições);
+    int numTrans = 0;
+    fscanf(file, "%d", &numTrans);
+    printf("Número de transições: %d\n", numTrans);
 
-    char matriz[numTransições][16];
+    char matriz[numTrans][16];
     char a[16];
     fgets(a,16,file);
     printf("Matriz de Transições\n");
-    for (int i=0; i < numTransições; i++) {
+    for (int i=0; i < numTrans; i++) {
         fgets(matriz[i], 16, file);
         printf("%s", matriz[i]);
     }
@@ -96,14 +101,14 @@ int main(int argc, char* argv[]){
 
 
     //remove spaces from string
-    for(int i = 0; i < numTransições; i++){
+    for(int i = 0; i < numTrans; i++){
         removeSpacesFromStr(matriz[i]);
     }
     for(int i=0; i<numPalavras; i++){
         char word[100];
         fgets(word, 100, file);
         printf("Palavra %d: %s\n", i+1, word);
-        bool test = turing_machine(qAccept, matriz, numTransições, word);
+        bool test = turing_machine(qAccept, matriz, numTrans, word);
         if(test){
             printf("%s OK\n",word);
         }

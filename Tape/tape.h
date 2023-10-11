@@ -18,17 +18,18 @@ void add_node(Node *init, char msg) {
     return;
   }
 
-  Node *aux = init;
-  no->s = msg;
-  while (aux->next != NULL) {
-    aux = aux->next;
+  if(msg != '\n'){
+    Node *aux = init;
+    no->s = msg;
+    while (aux->next != NULL) {
+      aux = aux->next;
+    }
+    aux->next = no;
+    no->prev = aux;
   }
-  aux->next = no;
-  no->next = aux;
 }
 
 Node* init_tape(char sigma){
-    printf("oi");
     Node* no = (Node*) malloc(sizeof(Node));
     if (no == NULL) {
         return NULL;
