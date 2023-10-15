@@ -14,7 +14,7 @@ void add_node(Node *init, char msg) {
   Node* no = (Node *)malloc(sizeof(Node));
   no->next = NULL;
 
-  if (no == NULL || msg == 0) {
+  if (no == NULL) {
     return;
   }
 
