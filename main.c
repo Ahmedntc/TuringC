@@ -20,12 +20,12 @@ char * removeSpacesFromStr(char *string)
 }
 
 //Função principal da máquina de Turing que processa a palavra de entrada
-bool turing_machine(char qAccept, char matriz[][16], int numTrans, char* word){
+bool turing_machine(char qAccept, char matriz[][16], int numTrans, char* p){
     char currQ = '1';
     // Inicializa a fita da máquina de Turing
-    Node* header = init_tape(word[0]); 
-    for (int i = 1; i < strlen(word); i++) {
-        add_node(header, word[i]);
+    Node* header = init_tape(p[0]); 
+    for (int i = 1; i < strlen(p); i++) {
+        add_node(header, p[i]);
     }
     // Adiciona espaço em branco ao final da fita
     add_node(header, '-');
@@ -115,16 +115,16 @@ int main(int argc, char* argv[]){
 
     // Processa e testa cada palavra usando a máquina de Turing
     for(int i=0; i<numPalavras; i++){
-        char word[100];
-        fgets(word, 100, file);
-        printf("\nPalavra %d: %s\n", i+1, word);
+        char palavra[100];
+        fgets(palavra, 100, file);
+        printf("\nPalavra %d: %s\n", i+1, palavra);
         printf("\nTransicoes feitas\n");
-        bool test = turing_machine(qAccept, matriz, numTrans, word);
+        bool test = turing_machine(qAccept, matriz, numTrans, palavra);
        if(test){
-            printf( "%s OK\n",word);
+            printf( "%s OK\n",palavra);
         }
         else{
-            printf("%s not OK\n",word);
+            printf("%s not OK\n",palavra);
         }
     }
 
