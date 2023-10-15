@@ -12,12 +12,10 @@ typedef struct Node{
 
 void add_node(Node *init, char msg) {
   Node* no = (Node *)malloc(sizeof(Node));
-  no->next = NULL;
-
   if (no == NULL) {
     return;
   }
-
+  no->next = NULL;
   if(msg != '\n'){
     Node *aux = init;
     no->s = msg;
