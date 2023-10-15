@@ -53,8 +53,6 @@ bool turing_machine(char qAccept, char matriz[][16], int numTrans, char* word){
                 else{
                     return false;
                 }
-
-                char prevQ = currQ;
                 currQ = matriz[i][4];
                 //se uma transição foi encontrada, nossa variavel t é true
                 t = true;
@@ -122,8 +120,8 @@ int main(int argc, char* argv[]){
         printf("\nPalavra %d: %s\n", i+1, word);
         printf("\nTransicoes feitas\n");
         bool test = turing_machine(qAccept, matriz, numTrans, word);
-        if(test){
-            printf("%s OK\n",word);
+       if(test){
+            printf( "%s OK\n",word);
         }
         else{
             printf("%s not OK\n",word);
